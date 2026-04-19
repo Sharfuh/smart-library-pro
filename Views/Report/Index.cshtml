@@ -1,0 +1,247 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background:
+                linear-gradient(rgba(2,6,23,0.9), rgba(2,6,23,0.95)),
+                url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container-main {
+            padding: 30px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header p {
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.08);
+            padding: 10px 18px;
+            border-radius: 10px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background: rgba(99,102,241,0.2);
+            box-shadow: 0 0 10px rgba(99,102,241,0.6);
+            text-decoration: none;
+        }
+
+        /* SECTION */
+        h4 {
+            margin-top: 30px;
+        }
+
+        .section-desc {
+            opacity: 0.6;
+            margin-bottom: 10px;
+        }
+
+        /* CARDS */
+        .card-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .card-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(99,102,241,0.4);
+        }
+
+        .card-title {
+            opacity: 0.7;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        /* TABLE */
+        .table-box {
+            margin-top: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            color: white;
+        }
+
+        th {
+            opacity: 0.7;
+        }
+
+        /* INSIGHT BOX */
+        .insight {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-main">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div>
+            <h2>📊 Reports Dashboard</h2>
+            <p>
+                Monitor library performance, track book usage, and analyze member activity in real-time.
+            </p>
+        </div>
+
+        <a href="/Dashboard/Index" class="btn-back">Back to Dashboard</a>
+    </div>
+
+    <!-- OVERVIEW -->
+    <h4>Library Overview</h4>
+    <p class="section-desc">
+        Quick summary of inventory, member base, and book circulation status.
+    </p>
+
+    <!-- STATS -->
+    <div class="row mt-3 g-4">
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="card-title">Total Books</div>
+                <div class="card-value">@ViewBag.TotalBooks</div>
+                <div class="card-desc">
+                    Total books available in library inventory.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="card-title">Members</div>
+                <div class="card-value">@ViewBag.TotalMembers</div>
+                <div class="card-desc">
+                    Total registered members in the system.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="card-title">Issued Books</div>
+                <div class="card-value">@ViewBag.IssuedBooks</div>
+                <div class="card-desc">
+                    Books currently issued to members.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="card-title">Overdue Books</div>
+                <div class="card-value">@ViewBag.OverdueBooks</div>
+                <div class="card-desc">
+                    Books not returned within due date.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="card-title">Total Fine</div>
+                <div class="card-value">₹ @ViewBag.TotalFine</div>
+                <div class="card-desc">
+                    Total fine collected from late returns.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TRANSACTIONS -->
+    <div class="table-box">
+        <h5>Recent Transactions</h5>
+        <p class="section-desc">
+            Displays the latest book issue and return activities.
+        </p>
+
+        <table class="mt-3">
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Member</th>
+                    <th>Issue Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var t in ViewBag.RecentTransactions)
+                {
+                    <tr>
+                        <td>@t.Book.Title</td>
+                        <td>@t.Member.Name</td>
+                        <td>@t.IssueDate.ToShortDateString()</td>
+                        <td>
+                            @(t.ReturnDate == null ? "Active" : "Returned")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="insight">
+        <h5>System Insights</h5>
+
+        <p>• Overdue tracking helps reduce book loss and delays.</p>
+        <p>• Fine collection improves return discipline among members.</p>
+        <p>• Monitoring issued books helps balance inventory efficiently.</p>
+        <p>• High demand books can be identified using issue trends.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

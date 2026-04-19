@@ -1,0 +1,167 @@
+@model SmartLibraryPro.Models.Transaction
+
+@{
+    Layout = null;
+
+    var today = DateTime.Now;
+    var isLate = today > Model.DueDate;
+    var daysLate = isLate ? (today - Model.DueDate).Days : 0;
+    var finePreview = daysLate * 5;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Return Book</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            background: #020617;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .container-main {
+            max-width: 600px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .card-box {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .info {
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .highlight {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* FINE BOX */
+        .fine-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .no-fine {
+            background: rgba(34,197,94,0.15);
+        }
+
+        .has-fine {
+            background: rgba(239,68,68,0.15);
+        }
+
+        /* BUTTONS */
+        .btn-gradient {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+        }
+
+        .btn-glass {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container-main">
+
+    <h2>Return Book</h2>
+    <p style="opacity:0.6;">Confirm return and calculate fine</p>
+
+    <div class="card-box">
+
+        <div class="info">
+            <span class="highlight">Book:</span> @Model.Book?.Title
+        </div>
+
+        <div class="info">
+            <span class="highlight">Member:</span> @Model.Member?.Name
+        </div>
+
+        <div class="info">
+            <span class="highlight">Issue Date:</span> @Model.IssueDate.ToShortDateString()
+        </div>
+
+        <div class="info">
+            <span class="highlight">Due Date:</span> @Model.DueDate.ToShortDateString()
+        </div>
+
+        <!-- FINE PREVIEW -->
+        <div class="fine-box @(finePreview > 0 ? "has-fine" : "no-fine")">
+
+            @if (finePreview > 0)
+            {
+                <h4>Fine: ₹@finePreview</h4>
+                <p>Late by @daysLate days</p>
+            }
+            else
+            {
+                <h4>No Fine</h4>
+                <p>Returned on time</p>
+            }
+
+        </div>
+
+        <!-- FORM -->
+        <form method="post" asp-action="ReturnConfirmed">
+
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit" class="btn-gradient">Confirm Return</button>
+
+                <a href="/Transaction/Index" class="btn-glass">Back</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

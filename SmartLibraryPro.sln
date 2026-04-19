@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLibraryPro", "SmartLibraryPro.csproj", "{29607A7A-6FC0-3083-2970-2E754A84A09F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29607A7A-6FC0-3083-2970-2E754A84A09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29607A7A-6FC0-3083-2970-2E754A84A09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29607A7A-6FC0-3083-2970-2E754A84A09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29607A7A-6FC0-3083-2970-2E754A84A09F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3621C88-4724-4949-8051-07CFF1E14C72}
+	EndGlobalSection
+EndGlobal

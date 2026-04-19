@@ -1,0 +1,163 @@
+@model SmartLibraryPro.Models.Book
+
+@{
+    Layout = null;
+
+    var status = Model.AvailableQuantity == 0 ? "Out of Stock"
+                : Model.AvailableQuantity < Model.Quantity ? "Issued"
+                : "Available";
+
+    var statusClass = status == "Available" ? "green"
+                      : status == "Issued" ? "orange"
+                      : "red";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Book Details</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #020617, #020617);
+            color: white;
+        }
+
+        .container-main {
+            padding: 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* GLASS CARD */
+        .glass-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* IMAGE */
+        .book-img {
+            width: 260px;
+            height: 340px;
+            border-radius: 14px;
+            background-size: cover;
+            background-position: center;
+            margin: auto;
+            transition: 0.3s;
+        }
+
+        .book-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* STATUS */
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .green { background: #16a34a; }
+        .orange { background: #f59e0b; }
+        .red { background: #ef4444; }
+
+        /* TITLE */
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .author {
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+
+        /* DESCRIPTION */
+        .desc {
+            margin-top: 15px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* BUTTONS */
+        .btn-custom {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container-main">
+
+    <div class="glass-card">
+
+        <div class="row">
+
+            <!-- IMAGE -->
+            <div class="col-md-4 text-center">
+                <div class="book-img"
+                     style="background-image:url('@(string.IsNullOrEmpty(Model.ImagePath) ? "https://via.placeholder.com/300" : Model.ImagePath)')">
+                </div>
+            </div>
+
+            <!-- DETAILS -->
+            <div class="col-md-8">
+
+                <div class="status @statusClass">@status</div>
+
+                <div class="title">@Model.Title</div>
+                <div class="author">@Model.Author</div>
+
+                <div><strong>Category:</strong> @Model.Category</div>
+                <div><strong>Total Quantity:</strong> @Model.Quantity</div>
+                <div><strong>Available:</strong> @Model.AvailableQuantity</div>
+
+                <div class="desc">
+                    @(string.IsNullOrEmpty(Model.Description) ? "No description available" : Model.Description)
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="mt-4">
+                    <a href="/Book/Edit/@Model.Id" class="btn btn-custom btn-edit">Edit</a>
+                    <a href="/Book/Index" class="btn btn-custom btn-back">Back</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

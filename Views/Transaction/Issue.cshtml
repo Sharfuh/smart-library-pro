@@ -1,0 +1,150 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue Book</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            background: #020617;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .container-main {
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* CARD */
+        .card-box {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        /* INPUT */
+        .form-select {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        select option {
+            background: #020617;
+            color: white;
+        }
+
+        /* BUTTONS */
+        .btn-gradient {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+        }
+
+        .btn-glass {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .error {
+            color: #ef4444;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container-main">
+
+    <h2 class="mb-3">Issue Book</h2>
+    <p style="opacity:0.6;">Assign a book to a member</p>
+
+    <div class="card-box">
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="error">@TempData["Error"]</div>
+        }
+
+        <form method="post">
+
+            <!-- BOOK -->
+            <div class="mb-3">
+                <label>Choose Book</label>
+                <select name="bookId" class="form-select" required>
+                    <option value="">Select Book</option>
+
+                    @foreach (var b in ViewBag.Books)
+                    {
+                        <option value="@b.Id">@b.Title (@b.AvailableQuantity available)</option>
+                    }
+                </select>
+            </div>
+
+            <!-- MEMBER -->
+            <div class="mb-3">
+                <label>Select Member</label>
+                <select name="memberId" class="form-select" required>
+                    <option value="">Select Member</option>
+
+                    @foreach (var m in ViewBag.Members)
+                    {
+                        <option value="@m.Id">@m.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit" class="btn-gradient">Issue Book</button>
+
+                <a href="/Transaction/Index" class="btn-glass">Back</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

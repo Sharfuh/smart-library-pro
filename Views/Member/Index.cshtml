@@ -1,0 +1,381 @@
+@model IEnumerable<SmartLibraryPro.Models.Member>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Members</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #020617;
+            color: white;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .container-main {
+            padding: 30px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-gradient {
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* 🔥 HOVER */
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(168,85,247,0.5);
+}
+
+
+.btn-glass {
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+/* 🔥 HOVER */
+.btn-glass:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+
+        /* CARD */
+        .member-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.3);
+        }
+
+        .member-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .member-info {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        /* ACTIONS */
+        .actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            flex: 1;
+        }
+
+        /* EMPTY */
+        .empty {
+            text-align: center;
+            margin-top: 60px;
+            opacity: 0.6;
+        }
+        .info-panel {
+    margin-top: 40px;
+    background: rgba(255,255,255,0.04);
+    padding: 25px;
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+.info-panel:hover {
+    box-shadow: 0 10px 30px rgba(99,102,241,0.2);
+}
+.mini-card {
+    background: rgba(255,255,255,0.05);
+    padding: 18px;
+    border-radius: 12px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+/* 🔥 HOVER EFFECT */
+.mini-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(99,102,241,0.25);
+}
+
+.mini-card h6 {
+    margin-bottom: 8px;
+}
+
+.mini-card p {
+    font-size: 13px;
+    opacity: 0.7;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: #111827;
+    padding: 25px;
+    border-radius: 14px;
+    width: 300px;
+    text-align: center;
+}
+
+/* CENTER BUTTONS */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* DELETE */
+.btn-delete {
+    background: #ef4444;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239,68,68,0.4);
+}
+
+/* CANCEL */
+.btn-cancel {
+    background: #374151;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 300px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container-main">
+
+    <!-- HEADER -->
+    <div class="header mb-4">
+        <div>
+            <h2>Member Management</h2>
+            <p style="opacity:0.6;">Manage all registered library members</p>
+        </div>
+
+        <div class="d-flex gap-3">
+            <a href="/Dashboard/Index" class="btn-glass">Back to Dashboard</a>
+            <a href="/Member/Create" class="btn-gradient">Add Member</a>
+        </div>
+    </div>
+
+    <div class="search-box">
+    <input type="text" id="memberSearch" placeholder="Search members by name..." onkeyup="filterMembers()" />
+    </div>
+    <div id="noResult" class="text-center mt-4 d-none">
+        <h5>No members found</h5>
+        <p style="opacity:0.6;">Try searching with a different name</p>
+    </div>
+
+    <!-- GRID -->
+    <div class="row g-4">
+
+        @if (!Model.Any())
+        {
+            <div class="empty">
+                <h4>No Members Found</h4>
+                <p>Add members to start managing your library</p>
+            </div>
+        }
+        else
+        {
+            foreach (var member in Model)
+            {
+                <div class="col-md-3 member-card-wrapper" data-name="@member.Name.ToLower()">
+                    <div class="member-card">
+
+                        <div class="member-name">@member.Name</div>
+                        <div class="member-info">@member.Email</div>
+                        <div class="member-info">@member.Phone</div>
+
+                        <div class="member-info mt-2">
+                            Joined: @member.JoinDate.ToShortDateString()
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="actions">
+                            <a href="/Member/Details/@member.Id" class="btn btn-primary btn-sm">View</a>
+                            <a href="/Member/Edit/@member.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <button class="btn btn-danger btn-sm"onclick="openDeleteModal('/Member/Delete/@member.Id')">Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+
+    <!-- INFO PANEL -->
+<div class="info-panel">
+
+    <h5>Member Management Overview</h5>
+
+    <p>
+        This section allows you to manage all registered members in the library.
+        Members can borrow books, track issued items, and maintain activity history.
+    </p>
+
+    <div class="row mt-3 g-4">
+
+    <div class="col-md-4">
+        <div class="mini-card">
+            <h6>Registration</h6>
+            <p>Each member must be registered with valid contact details.</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="mini-card">
+            <h6>Borrowing</h6>
+            <p>Members can issue books based on availability in the system.</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="mini-card">
+            <h6>Tracking</h6>
+            <p>All issued and returned books are tracked through transactions.</p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal-overlay d-none">
+    <div class="modal-box">
+        <h5>Confirm Delete</h5>
+        <p>Are you sure you want to delete this member?</p>
+
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <a id="confirmDeleteBtn" class="btn-delete">Delete</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function openDeleteModal(deleteUrl) {
+    document.getElementById("deleteModal").classList.remove("d-none");
+    document.getElementById("confirmDeleteBtn").href = deleteUrl;
+}
+
+function closeModal() {
+    document.getElementById("deleteModal").classList.add("d-none");
+}
+
+
+function filterMembers() {
+    let input = document.getElementById("memberSearch").value.toLowerCase();
+    let cards = document.querySelectorAll(".member-card-wrapper");
+    let found = false;
+
+    cards.forEach(card => {
+        let name = card.getAttribute("data-name");
+
+        if (name.includes(input)) {
+            card.style.display = "block";
+            found = true;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    let noResult = document.getElementById("noResult");
+
+    if (!found) {
+        noResult.classList.remove("d-none");
+    } else {
+        noResult.classList.add("d-none");
+    }
+}
+</script>
+
+</body>
+</html>

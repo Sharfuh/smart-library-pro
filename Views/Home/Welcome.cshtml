@@ -1,0 +1,349 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Library Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(2,6,23,0.9), rgba(2,6,23,0.95)),
+                url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    overflow-x: hidden;
+}
+
+        /* GLOW BACKGROUND */
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #6366f1;
+            filter: blur(150px);
+            opacity: 0.3;
+            top: -100px;
+            left: -100px;
+        }
+
+        .glow2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #9333ea;
+            filter: blur(120px);
+            opacity: 0.3;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* NAVBAR */
+        .navbar-custom {
+            padding: 20px 50px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .login-btn {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    color: white;
+    transition: 0.3s;
+    text-decoration: none !important;
+}
+
+.login-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(99,102,241,0.8);
+}
+
+        /* HERO */
+        .hero {
+            padding: 100px 50px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+        }
+
+        .hero span {
+            color: #6366f1;
+        }
+
+        .hero p {
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        .hero-box {
+    height: 350px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 60px rgba(99,102,241,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+        /* CARDS */
+        .section {
+            padding: 80px 50px;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .glass:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 60px rgba(99,102,241,0.5);
+}
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+        }
+
+        .quote {
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* FLOATING LIGHT EFFECT */
+.floating-light {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(99,102,241,0.4), transparent);
+    filter: blur(80px);
+    animation: floatMove 10s infinite ease-in-out;
+}
+
+.floating-light2 {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(147,51,234,0.4), transparent);
+    filter: blur(80px);
+    animation: floatMove2 12s infinite ease-in-out;
+}
+
+@@keyframes floatMove {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(100px, 80px); }
+    100% { transform: translate(0,0); }
+}
+
+@@keyframes floatMove2 {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-120px, 60px); }
+    100% { transform: translate(0,0); }
+}
+
+.floating-book {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.08;
+    animation: floatBook 15s linear infinite;
+}
+
+@@keyframes floatBook {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+.gradient-text {
+    background: linear-gradient(90deg, #6366f1, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<div class="floating-light"></div>
+<div class="floating-light2"></div>
+
+<div class="floating-book" style="left:10%;">📘</div>
+<div class="floating-book" style="left:30%;">📗</div>
+
+<div class="floating-book" style="left:10%;">📘</div>
+<div class="floating-book" style="left:30%; animation-delay:3s;">📗</div>
+<div class="floating-book" style="left:60%; animation-delay:6s;">📕</div>
+<div class="floating-book" style="left:80%; animation-delay:9s;">📙</div>
+
+<!-- NAVBAR -->
+<div class="d-flex justify-content-between align-items-center navbar-custom">
+    <h4>📚 SmartLibraryPro</h4>
+    <a href="/Auth/Login" class="login-btn">Login</a>
+</div>
+
+<!-- HERO -->
+<div class="container-fluid hero">
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+    <h1>Next Gen <span class="gradient-text">Library System</span></h1>
+
+    <p>
+        A complete digital solution for managing books, members, and transactions.
+        Designed for modern libraries with automation, real-time tracking, and intelligent reporting.
+    </p>
+
+    <div class="mt-4">
+        <p style="opacity:0.7;">
+            ✔ Manage thousands of books effortlessly <br>
+            ✔ Track member activity in real-time <br>
+            ✔ Automated issue, return & fine system <br>
+            ✔ Powerful reports & insights
+        </p>
+    </div>
+</div>
+
+        <div class="col-md-6">
+            <div class="hero-box">
+               <h3>Smart Analytics</h3>
+                <p style="opacity:0.7; text-align:center; max-width:250px;">
+                   Monitor library performance, track usage, and make better decisions with insights.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section container">
+    <h2 class="section-title">✨ Powerful Features</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>📘 Book Tracking</h5>
+                <p>Manage inventory with real-time availability updates.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>👥 Smart Members</h5>
+                <p>Track readers, activity, and engagement easily.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>🔄 Automation</h5>
+                <p>Auto issue, return, and fine calculation system.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="section container">
+    <h2 class="section-title">📌 How to Use</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>Step 1: Add Books</h5>
+                <p>Insert all books with quantity, category, and images.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>Step 2: Register Members</h5>
+                <p>Add member details and manage their borrowing history.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass">
+                <h5>Step 3: Issue & Return</h5>
+                <p>Track book issue, returns, and automatic fine calculation.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="section container text-center">
+    <h2 class="section-title">🚀 Why SmartLibraryPro?</h2>
+
+    <div class="glass">
+        <p>
+            SmartLibraryPro is designed for modern libraries to eliminate manual work,
+            reduce errors, and provide complete control over library operations.
+            It improves efficiency, saves time, and ensures accurate tracking of books and members.
+        </p>
+    </div>
+</div>
+
+<!-- QUOTES -->
+<div class="section container text-center">
+    <h2 class="section-title">💡 Inspiration</h2>
+
+    <div class="glass mb-3">
+        <p class="quote">"A reader lives a thousand lives before he dies."</p>
+    </div>
+
+    <div class="glass">
+        <p class="quote">"Books are uniquely portable magic."</p>
+    </div>
+</div>
+
+<script>
+    const elements = document.querySelectorAll('.glass, .hero-box');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    });
+
+    elements.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(40px)";
+        el.style.transition = "0.6s ease";
+        observer.observe(el);
+    });
+</script>
+
+</body>
+</html>

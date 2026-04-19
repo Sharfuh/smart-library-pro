@@ -1,0 +1,507 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0b1120;
+            color: white;
+        }
+
+        /* BACKGROUND IMAGE */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover no-repeat;
+            opacity: 0.08;
+            z-index: -1;
+        }
+
+        .app {
+            display: flex;
+        }
+
+        /* SIDEBAR */
+       .sidebar {
+    width: 280px;
+    height: 100vh;
+
+    position: fixed;     /* 🔥 IMPORTANT */
+    top: 0;
+    left: 0;
+
+    background: #111827;
+    padding: 30px 20px;
+
+    overflow-y: auto;    /* optional but good */
+    box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 30px;
+    height: 100vh;
+    overflow-y: auto;
+
+    animation: fadeIn 0.6s ease;
+}
+
+@@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TITLE */
+.sidebar h4 {
+    margin-bottom: 40px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* NAV ITEMS */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item:hover {
+    background: #1f2937;
+    transform: translateX(5px);
+}
+
+        /* MAIN */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: #1f2937;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* BIG PANEL */
+        .hero {
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.hero:hover {
+    transform: scale(1.01);
+    box-shadow: 0 15px 40px rgba(124,58,237,0.4);
+}
+
+        /* CARDS */
+        .card-pro {
+    background: rgba(17,24,39,0.85); /* darker glass */
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-radius: 14px;
+    padding: 20px;
+    height: 110px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow: 
+        0 8px 25px rgba(0,0,0,0.6),
+        inset 0 0 10px rgba(255,255,255,0.02);
+
+    transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.card-pro:hover {
+    transform: translateY(-6px) scale(1.02);
+
+    background: rgba(17,24,39,0.95);
+
+    border: 1px solid rgba(99,102,241,0.4);
+
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.8),
+        0 0 20px rgba(99,102,241,0.2);
+}
+
+        /* INFO PANELS */
+        .panel {
+    background: rgba(17,24,39,0.85);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-radius: 14px;
+    padding: 25px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow: 
+        0 8px 25px rgba(0,0,0,0.6),
+        inset 0 0 10px rgba(255,255,255,0.02);
+
+    transition: 0.3s;
+}
+
+.panel:hover {
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.8),
+        0 0 20px rgba(99,102,241,0.2);
+}
+
+        .section-title {
+            margin-bottom: 15px;
+        }
+        .logo {
+    font-size: 22px;
+}
+
+.icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+.mt-5 {
+    margin-top: 40px !important;
+}
+.panel p:hover {
+    background: rgba(255,255,255,0.05);
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.library-overview {
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+
+    background: #111827; /* same as sidebar */
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.6),
+        inset 0 0 10px rgba(255,255,255,0.02);
+
+    transition: 0.3s;
+}
+
+/* subtle hover */
+.library-overview:hover {
+    transform: translateY(-4px);
+    border: 1px solid rgba(99,102,241,0.4);
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.8),
+        0 0 20px rgba(99,102,241,0.2);
+}
+
+/* Glow effect */
+.library-overview::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    width: 8px;
+    height: 8px;
+
+    background: #6366f1;
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px #6366f1;
+}
+.library-overview::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.15);
+    filter: blur(100px);
+    bottom: -100px;
+    left: -100px;
+}
+.library-overview h4 {
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+.library-overview h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.library-overview p {
+    opacity: 0.8;
+}
+
+/* Hover */
+.library-overview:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 
+        0 20px 60px rgba(99,102,241,0.7),
+        inset 0 0 60px rgba(255,255,255,0.08);
+}
+
+.mini-trend {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 40px;
+}
+
+.bar {
+    width: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.library-overview:hover .bar {
+    background: white;
+    transform: scaleY(1.1);
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h4><span class="logo">📚</span> SmartLibraryPro</h4>
+
+<a href="/Book/Index" class="nav-item">
+    <span class="icon">📖</span>
+    <span>Books</span>
+</a>
+
+<a href="/Member/Index" class="nav-item">
+    <span class="icon">🧑‍🤝‍🧑</span>
+    <span>Members</span>
+</a>
+
+<a href="/Transaction/Index" class="nav-item">
+    <span class="icon">🔁</span>
+    <span>Transactions</span>
+</a>
+
+<a href="/Report/Index" class="nav-item">
+    <span class="icon">📊</span>
+    <span>Reports</span>
+</a>
+
+<div class="nav-item" onclick="location.href='/Auth/Logout'">
+    <span class="icon">🚪</span>
+    <span>Logout</span>
+</div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>📊 Dashboard</h2>
+        </div>
+
+        <!-- HERO -->
+        <div class="library-overview">
+            <h4>Library Overview</h4>
+            <h2>@ViewBag.TotalBooks Total Books in System</h2>
+            <p>Monitor inventory, members, and transactions in real-time.</p>
+            <div class="mini-trend mt-3">
+    <div class="bar" style="height:40%"></div>
+    <div class="bar" style="height:70%"></div>
+    <div class="bar" style="height:50%"></div>
+    <div class="bar" style="height:90%"></div>
+    <div class="bar" style="height:60%"></div>
+</div>
+        </div>
+
+        <!-- STATS -->
+        <div class="row g-4 mt-3">
+
+            <div class="col-md-3">
+                <div class="card-pro">
+                    <h6>Available Books</h6>
+                    <h3 class="count" data-value="@ViewBag.AvailableBooks">0</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-pro">
+                    <h6>Issued Books</h6>
+                    <h3 class="count" data-value="@ViewBag.IssuedBooks">0</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-pro">
+                    <h6>Total Members</h6>
+                    <h3 class="count" data-value="@ViewBag.TotalMembers">0</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-pro">
+                    <h6>Overdue Books</h6>
+                    <h3 class="count" data-value="@ViewBag.OverdueBooks">0</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LOWER SECTION -->
+        <div class="row mt-4 g-4">
+
+            <div class="col-md-6">
+                <div class="panel">
+                    <h5 class="section-title">📊 System Status</h5>
+                    <p>Total Books: @ViewBag.TotalBooks</p>
+                    <p>Available: @ViewBag.AvailableBooks</p>
+                    <p>Issued: @ViewBag.IssuedBooks</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel">
+    <h5 class="section-title">🕒 Recent Activity</h5>
+
+    @if (ViewBag.RecentTransactions != null && ViewBag.RecentTransactions.Count > 0)
+    {
+        foreach (var t in ViewBag.RecentTransactions)
+        {
+            <p>
+                <strong>@t.Member.Name</strong> 
+                @(t.ReturnDate == null ? "issued" : "returned") 
+                <strong>@t.Book.Title</strong>
+                <br />
+                <span style="opacity:0.6; font-size:12px;">
+                    @t.IssueDate.ToShortDateString()
+                </span>
+            </p>
+        }
+    }
+    else
+    {
+        <p>No recent transactions yet.</p>
+    }
+</div>
+            </div>
+
+        </div>
+
+        <!-- APP USAGE GUIDE -->
+<div class="mt-5">
+    <div class="panel">
+
+        <h5 class="section-title">📘 System Usage Guide</h5>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <h6>📚 Book Management</h6>
+                <p>
+                    Add and manage all books in the system. Ensure correct quantity is maintained.
+                    Available quantity updates automatically based on issued books.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h6>👥 Member Management</h6>
+                <p>
+                    Register members with valid details. Each member can issue books and track activity.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h6>🔄 Transactions</h6>
+                <p>
+                    Issue books for 7 days. Late returns will automatically calculate fines.
+                    Always verify availability before issuing.
+                </p>
+            </div>
+
+        </div>
+
+        <hr style="opacity:0.2;">
+
+        <h6>⚙️ Important Notes</h6>
+        <ul>
+            <li>System automatically tracks overdue books.</li>
+            <li>Available stock reduces when books are issued.</li>
+            <li>Fine = ₹5 per day after due date.</li>
+            <li>Ensure all returns are recorded properly.</li>
+        </ul>
+
+    </div>
+</div>
+
+    </div>
+
+</div>
+<script>
+    const counters = document.querySelectorAll('.count');
+
+    counters.forEach(counter => {
+        const update = () => {
+            const target = +counter.getAttribute('data-value');
+            let current = +counter.innerText;
+
+            const increment = target / 40;
+
+            if (current < target) {
+                counter.innerText = Math.ceil(current + increment);
+                setTimeout(update, 20);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        update();
+    });
+</script>
+</body>
+</html>
