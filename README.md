@@ -117,7 +117,7 @@ dotnet build
 dotnet run
 ```
 
-Frontend: http://localhost:<port>
+Frontend: http://localhost:<port> (e.g., http://localhost:5159)
 Swagger: Not configured in this project
 
 ## 🚀 Key Learnings
