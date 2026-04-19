@@ -111,7 +111,7 @@ SmartLibraryPro/
 
 ## How to Run
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/sharfuh/smart-library-pro.git
 dotnet restore
 dotnet build
 dotnet run
